@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Лаб8.2</title>
+</head>
+<body>
+<div class="form-wrap">
+    <h1>Регистрация</h1>
+    <form class="form">
+        <input id="name" class="form-field" type="text" placeholder="Введите имя">
+        <span id="name-msg" class="error-feedback"></span>
+        <input id="password" class="form-field" type="password" placeholder="Введите пароль">
+        <span id="password-msg" class="error-feedback"></span>
+        <input id="rePassword" class="form-field" type="password" placeholder="Повторите пароль">
+        <span id="rePassword-msg" class="error-feedback"></span>
+        <input class="form-button" type="button" value="Зарегистрироваться" onclick="CheckForm()">
+    </form>
+</div>
+</body>
+</html>
+<script>
+    function CheckForm() {
+        CheckName();
+        CheckPassword();
+        CheckRePassword();
+    }
+
+    function CheckName() {
+        let field = document.getElementById('name');
+        let name = field.value;
+        let msg = "";
+        if (name.length < 1 || name.length > 50) {
+            msg = "Имя должно содержать от 1 до 50 символов";
+            field.classList.add("is-invalid")
+        } else field.classList.add("is-valid");
+        document.getElementById('name-msg').innerHTML = msg
+    }
+
+    function CheckPassword() {
+        let field = document.getElementById('password');
+        let password = field.value;
+        let msg = "";
+        if (password.length < 5 || password.length > 50) {
+            msg = "Пароль должен содержать от 5 до 50 символов";
+            field.classList.add("is-invalid")
+        } else field.classList.add("is-valid");
+        document.getElementById('password-msg').innerHTML = msg
+    }
+
+    function CheckRePassword() {
+        let field = document.getElementById('rePassword');
+        let rePassword = field.value;
+        let password = document.getElementById('password').value;
+        let msg = "";
+        if (rePassword.length === 0) {
+            msg = "Это поле обязательно для заполнения";
+            field.classList.add("is-invalid")
+        }
+        else if (rePassword !== password) {
+            msg = "Пароли должны совпадать";
+            field.classList.add("is-invalid")
+        } else field.classList.add("is-valid");
+        document.getElementById('rePassword-msg').innerHTML = msg
+    }
+</script>
+<style>
+    .form-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .form-field {
+        width: 300px;
+        height: 20px;
+        margin-top: 20px;
+        font-size: 14px;
+    }
+
+    .form-button {
+        width: 200px;
+        margin: 5px auto;
+    }
+
+    .is-invalid {
+        border: 1px solid #dd0000;
+    }
+
+    .is-valid {
+        border: 1px solid forestgreen;
+    }
+
+    .error-feedback {
+        color: #dd0000;
+        margin-top: 5px;
+    }
+</style>
